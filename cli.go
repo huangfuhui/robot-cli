@@ -27,7 +27,7 @@ func main() {
 	}
 
 	// 拼装参数
-	requestUrl, _ := url.Parse("")
+	requestUrl, _ := url.Parse("http://robot.lite.meimeifa.cn/cli")
 	query := requestUrl.Query()
 	query.Set("handset", os.Args[1])
 	query.Set("command", command)
@@ -35,10 +35,11 @@ func main() {
 
 	// 发起请求
 	resp, err := http.Get(requestUrl.String());
-	defer resp.Body.Close()
 	if err != nil {
 		panic(err)
 	}
+	
+	defer resp.Body.Close()
 
 	// 解析结果
 	body, err := ioutil.ReadAll(resp.Body)
