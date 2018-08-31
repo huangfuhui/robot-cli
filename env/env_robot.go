@@ -72,6 +72,8 @@ func main() {
     if err != nil {
         panic(err)
     }
+
+    fmt.Println("切换环境完成...")
 }
 
 // 判断文件是否存在
