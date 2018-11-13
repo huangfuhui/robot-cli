@@ -17,13 +17,13 @@ func main() {
 
     argsQuantity := len(os.Args)
     if argsQuantity < 4 {
-        fmt.Println("请输入以下命令参数 env[dev sit uat deploy] new_env_path old_env_path")
+        fmt.Println("请输入以下命令参数 env[dev sit uat pre deploy] new_env_path old_env_path")
         return
     }
 
     env := os.Args[1]
-    if !strings.Contains("dev sit uat deploy", env) {
-        fmt.Println("请选择正确的环境值 -> [dev sit uat deploy]")
+    if !strings.Contains("dev sit uat pre deploy", env) {
+        fmt.Println("请选择正确的环境值 -> [dev sit uat pre deploy]")
         return
     }
     newEnvPath := os.Args[2]
@@ -63,6 +63,12 @@ func main() {
                 return
             }
             config, err = ioutil.ReadFile(newEnvPath + "/uat.env")
+        case "pre":
+            if !isFileExist(newEnvPath + "/pre.env") {
+                fmt.Println("文件 " + newEnvPath + "/pre.env 不存在")
+                return
+            }
+            config, err = ioutil.ReadFile(newEnvPath + "/pre.env")
         case "deploy":
             if !isFileExist(newEnvPath + "/deploy.env") {
                 fmt.Println("文件 " + newEnvPath + "/deploy.env 不存在")
